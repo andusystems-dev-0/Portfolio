@@ -1,0 +1,9 @@
+node_modules
+.svelte-kit
+build
+.git
+PLAN.md
+[AI_ASSISTANT].md
+README.md
+*.log
+.DS_Store
