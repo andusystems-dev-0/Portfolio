@@ -83,7 +83,16 @@ jobs:
         run: |
           set -euo pipefail
 
-          REPO_URL="https://${FORGEJO_USER}:${FORGEJO_TOKEN}@forgejo.andusystems.com/andusystems/andusystems-portfolio.git"
+          # Use the cluster-internal Forgejo URL — the runner pod is on the
+          # management cluster (same cluster as Forgejo), so this resolves
+          # via in-cluster DNS without going through Pangolin/public DNS.
+          # The public URL (forgejo.andusystems.com) routes through the
+          # Pangolin overlay (100.x.x.x), which the management pod network
+          # has no path to, AND its TLS chain isn't trusted by the runner
+          # pod's git/curl. The internal URL is plain HTTP — Forgejo accepts
+          # basic auth credentials over HTTP for git protocol just fine,
+          # and the traffic never leaves the cluster.
+          REPO_URL="http://${FORGEJO_USER}:${FORGEJO_TOKEN}@forgejo-http.forgejo.svc.cluster.local:3000/andusystems/andusystems-portfolio.git"
           WORKDIR="$(mktemp -d)"
 
           # Shallow clone is fine — we only need to edit one file and push one
