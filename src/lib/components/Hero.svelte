@@ -27,7 +27,7 @@
 			class:opacity-100={show[0]}
 			class:translate-y-0={show[0]}
 		>
-			ALEX TEST
+			ALEX
 		</h1>
 
 		<!-- Flip Clock Roles -->
