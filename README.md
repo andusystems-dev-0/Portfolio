@@ -1,6 +1,6 @@
 # Andusystems Portfolio
 
-A personal portfolio website for Alex — Developer & Infrastructure Engineer. Built with SvelteKit and featuring an animated flip-clock role display, dark theme with copper accents, and staggered entrance animations.
+A personal portfolio website for a Developer & Infrastructure Engineer. Built with SvelteKit and featuring an animated flip-clock role display, dark theme with copper accents, and staggered entrance animations.
 
 ## Features
 
