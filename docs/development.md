@@ -57,38 +57,36 @@ docker run -p 8080:8080 portfolio
 ```
 
 The Docker build is a two-stage process:
-
-1. **Builder** — Node 20 Alpine installs dependencies (`npm ci`) and runs the production build
+1. **Builder** — Node 20 Alpine installs dependencies and runs the production build
 2. **Runtime** — nginx-unprivileged 1.27 Alpine serves the static output on port 8080
 
-The container runs as a non-root user (uid 101). The nginx configuration includes SPA fallback routing, gzip compression, and immutable asset caching.
+The container runs as a non-root user.
 
 ## Project Layout
 
 ```
 ├── src/
 │   ├── app.html            # HTML template (meta tags, fonts, dark mode)
-│   ├── app.postcss          # Global CSS (Tailwind directives, background gradient)
+│   ├── app.postcss          # Global CSS (Tailwind directives, background)
 │   ├── app.d.ts             # SvelteKit ambient types
 │   ├── lib/
 │   │   └── components/      # Reusable Svelte components
-│   │       ├── FlipChar.svelte   # Individual 3D flip-card character
-│   │       ├── FlipText.svelte   # Flip-clock role cycler
-│   │       ├── Hero.svelte       # Hero section with animations
-│   │       └── Nav.svelte        # Top navigation bar
+│   │       ├── FlipChar.svelte
+│   │       ├── FlipText.svelte
+│   │       ├── Hero.svelte
+│   │       └── Nav.svelte
 │   └── routes/
-│       ├── +layout.svelte   # Root layout (imports global styles)
+│       ├── +layout.svelte   # Root layout
 │       ├── +layout.ts       # Prerender + CSR config
-│       └── +page.svelte     # Homepage (Nav + Hero)
+│       └── +page.svelte     # Homepage
 ├── static/                  # Served as-is (favicon, robots.txt)
-├── docs/                    # Project documentation
 ├── Dockerfile               # Multi-stage container build
 ├── nginx.conf               # Production nginx configuration
 ├── svelte.config.js         # SvelteKit + static adapter config
 ├── tailwind.config.js       # Tailwind theme (copper palette, fonts)
-├── postcss.config.js        # PostCSS processors (Tailwind + Autoprefixer)
-├── vite.config.ts           # Vite configuration with SvelteKit plugin
-├── tsconfig.json            # TypeScript settings (strict mode)
+├── postcss.config.js        # PostCSS processors
+├── vite.config.ts           # Vite configuration
+├── tsconfig.json            # TypeScript settings
 └── package.json             # Dependencies and scripts
 ```
 
@@ -96,31 +94,18 @@ The container runs as a non-root user (uid 101). The nginx configuration include
 
 The project uses **Tailwind CSS** with the **Skeleton UI** component library.
 
-### Color Tokens
+Key theme customizations in `tailwind.config.js`:
 
-| Token           | Value       | Usage                      |
-|-----------------|-------------|----------------------------|
-| `copper`        | `#c8b89a`   | Primary accent color       |
-| `copper-light`  | `#d4c9b0`   | Hover / light variant      |
-| `copper-dark`   | `#a89878`   | Active / dark variant      |
+| Token           | Value                        | Usage                          |
+|-----------------|------------------------------|--------------------------------|
+| `copper`        | `#c8b89a`                    | Primary accent color           |
+| `copper-light`  | `#d4c9b0`                    | Hover/light accent variant     |
+| `copper-dark`   | `#a89878`                    | Active/dark accent variant     |
+| `font-display`  | Bebas Neue                   | Headlines                      |
+| `font-sans`     | DM Sans                      | Body text                      |
+| `font-mono`     | DM Mono                      | Flip-clock characters          |
 
-### Font Families
-
-| Token          | Typeface    | Usage                |
-|----------------|-------------|----------------------|
-| `font-display` | Bebas Neue  | Headlines            |
-| `font-sans`    | DM Sans     | Body text            |
-| `font-mono`    | DM Mono     | Flip-clock characters |
-
-Fonts are loaded via Google Fonts in `src/app.html`.
-
-### Dark Mode
-
-Dark mode is enabled via the `class` strategy (`darkMode: 'class'` in `tailwind.config.js`). The HTML shell in `src/app.html` sets `class="dark"` on the root element.
-
-### Background
-
-The global background is a radial gradient defined in `src/app.postcss` — an ellipse from `#12121a` to `#0a0a0f` centered at 50% 40%.
+Dark mode is enabled via the `class` strategy (`darkMode: 'class'` in Tailwind config), and the HTML shell sets `class="dark"` on the root element.
 
 ## Type Checking
 
@@ -128,42 +113,21 @@ The global background is a radial gradient defined in `src/app.postcss` — an e
 npm run check
 ```
 
-Runs `svelte-check` with TypeScript in strict mode. This validates both `.svelte` and `.ts` files. The project uses bundler module resolution (`moduleResolution: "bundler"` in `tsconfig.json`).
+Runs `svelte-check` with TypeScript in strict mode. This validates both `.svelte` and `.ts` files.
 
 ## Adding a New Component
 
 1. Create a `.svelte` file in `src/lib/components/`
 2. Import it from `$lib/components/YourComponent.svelte`
 3. Use Tailwind utilities and the copper color tokens for consistent styling
-4. Respect `prefers-reduced-motion` for any animations — the global styles in `app.postcss` disable transitions when the user preference is set
+4. Respect `prefers-reduced-motion` for any animations
 
 ## Adding a New Route
 
 1. Create a directory under `src/routes/` (e.g., `src/routes/projects/`)
 2. Add a `+page.svelte` file in that directory
 3. The static adapter will pre-render the new route automatically
-4. Client-side navigation between routes is handled by SvelteKit's router
-
-## CI/CD
-
-The project includes a GitHub Actions workflow (`.github/workflows/build-and-push.yml`) that runs on a self-hosted runner. On push to `main`:
-
-1. Builds the Docker image using the multi-stage `Dockerfile`
-2. Tags the image with the short commit SHA (immutable) and `latest`
-3. Pushes both tags to an internal container registry
-4. Clones the infrastructure GitOps repository and updates the deployment manifest with the new image tag
-5. ArgoCD detects the manifest change and rolls the deployment
-
-The workflow uses concurrency controls — newer pushes to the same ref cancel in-flight builds. Registry credentials are stored as repository secrets.
 
 ## Environment Variables
 
-No environment variables are required for local development or production builds. The site is fully static with no external service dependencies.
-
-The CI pipeline uses the following repository secrets (not needed for local development):
-
-| Secret | Purpose |
-|--------|---------|
-| `NEXUS_USERNAME` | Container registry authentication |
-| `NEXUS_PASSWORD` | Container registry authentication |
-| `FORGEJO_TOKEN`  | Git access for GitOps image tag bump |
+No environment variables are required for development or production. The site is fully static with no external service dependencies.
