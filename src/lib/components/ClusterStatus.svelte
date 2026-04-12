@@ -4,11 +4,11 @@
   type Status = 'operational' | 'degraded' | 'unavailable';
 
   const clusters = [
-    { label: 'mgmt', url: 'https://status-management.andusystems.com/healthz' },
-    { label: 'net', url: 'https://status-networking.andusystems.com/healthz' },
-    { label: 'stor', url: 'https://status-storage.andusystems.com/healthz' },
-    { label: 'mon', url: 'https://status-monitoring.andusystems.com/healthz' },
-    { label: 'port', url: 'https://status-portfolio.andusystems.com/healthz' },
+    { label: 'mgmt', path: '/api/status/management' },
+    { label: 'net', path: '/api/status/networking' },
+    { label: 'stor', path: '/api/status/storage' },
+    { label: 'mon', path: '/api/status/monitoring' },
+    { label: 'port', path: '/api/status/portfolio' },
   ];
 
   let statuses: Status[] = clusters.map(() => 'unavailable');
@@ -18,7 +18,7 @@
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 5000);
-      const res = await fetch(clusters[index].url, {
+      const res = await fetch(clusters[index].path, {
         signal: controller.signal
       });
       clearTimeout(timeout);
