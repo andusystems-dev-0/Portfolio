@@ -41,22 +41,38 @@
   onDestroy(() => clearInterval(interval));
 </script>
 
-<div class="cluster-status">
-  {#each clusters as cluster, i}
-    <div class="cluster">
-      <span class="dot {statuses[i]}" />
-      <span class="label">{cluster.label}</span>
-    </div>
-  {/each}
+<div class="cluster-status-wrapper">
+  <div class="cluster-status">
+    {#each clusters as cluster, i}
+      <div class="cluster">
+        <span class="dot {statuses[i]}" />
+        <span class="label">{cluster.label}</span>
+      </div>
+    {/each}
+  </div>
+  <span class="status-label">cluster status</span>
 </div>
 
 <style>
-  .cluster-status {
+  .cluster-status-wrapper {
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .status-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    color: #6a6a6a;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .cluster-status {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 0.35rem 0.35rem;
   }
 
   .cluster {
