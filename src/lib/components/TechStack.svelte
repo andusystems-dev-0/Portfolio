@@ -55,11 +55,14 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 1.25rem;
+    padding-top: 0.75rem;
     gap: 0.75rem;
+    background: radial-gradient(ellipse at 50% 100%, #12121a 0%, #0a0a0f 70%);
   }
 
   .divider {

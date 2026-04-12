@@ -4,7 +4,7 @@
   import TechStack from '$lib/components/TechStack.svelte';
 </script>
 
-<div class="relative h-screen w-screen overflow-hidden">
+<div class="relative min-h-screen w-screen">
 	<Nav />
 	<Hero />
   <TechStack />
