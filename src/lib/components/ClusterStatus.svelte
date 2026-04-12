@@ -3,62 +3,78 @@
 
   type Status = 'operational' | 'degraded' | 'unavailable';
 
-  let status: Status = 'unavailable';
+  const clusters = [
+    { label: 'mgmt', url: 'https://status-management.andusystems.com/healthz' },
+    { label: 'net', url: 'https://status-networking.andusystems.com/healthz' },
+    { label: 'stor', url: 'https://status-storage.andusystems.com/healthz' },
+    { label: 'mon', url: 'https://status-monitoring.andusystems.com/healthz' },
+    { label: 'port', url: 'https://status-portfolio.andusystems.com/healthz' },
+  ];
+
+  let statuses: Status[] = clusters.map(() => 'unavailable');
   let interval: ReturnType<typeof setInterval>;
 
-  async function checkHealth() {
+  async function checkHealth(index: number) {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 5000);
-      const res = await fetch('https://status.andusystems.com/healthz', {
+      const res = await fetch(clusters[index].url, {
         signal: controller.signal
       });
       clearTimeout(timeout);
-      status = res.ok ? 'operational' : 'degraded';
+      statuses[index] = res.ok ? 'operational' : 'degraded';
     } catch {
-      status = 'unavailable';
+      statuses[index] = 'unavailable';
     }
+    statuses = statuses;
+  }
+
+  function checkAll() {
+    clusters.forEach((_, i) => checkHealth(i));
   }
 
   onMount(() => {
-    checkHealth();
-    interval = setInterval(checkHealth, 60000);
+    checkAll();
+    interval = setInterval(checkAll, 60000);
   });
 
   onDestroy(() => clearInterval(interval));
 </script>
 
 <div class="cluster-status">
-  <span class="dot {status}" />
-  <span class="label">
-    {#if status === 'operational'}
-      infra: operational
-    {:else if status === 'degraded'}
-      infra: degraded
-    {:else}
-      infra: unavailable
-    {/if}
-  </span>
+  {#each clusters as cluster, i}
+    <div class="cluster">
+      <span class="dot {statuses[i]}" />
+      <span class="label">{cluster.label}</span>
+    </div>
+  {/each}
 </div>
 
 <style>
   .cluster-status {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   .label {
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: #555555;
     letter-spacing: 0.08em;
   }
 
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     display: inline-block;
     flex-shrink: 0;
