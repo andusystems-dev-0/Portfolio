@@ -57,7 +57,7 @@
           <span>Github</span>
         </a>
 
-        <a href="/resume.pdf" target="_blank" class="cta-btn">
+        <a href="/AlexResume.pdf" target="_blank" class="cta-btn">
           <FileText size={18} />
           <span>Resume</span>
         </a>
