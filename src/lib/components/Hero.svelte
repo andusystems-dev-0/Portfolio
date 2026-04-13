@@ -57,7 +57,7 @@
           <span>Github</span>
         </a>
 
-        <a href="/AlexResume.pdf" target="_blank" class="cta-btn">
+        <a href="/AlexResume e.pdf" target="_blank" class="cta-btn">
           <FileText size={18} />
           <span>Resume</span>
         </a>
@@ -126,7 +126,7 @@
     font-size: 0.85rem;
     color: #999999;
     letter-spacing: 0.05em;
-    margin-top: 0.45rem;
+    margin-top: 0rem;
   }
 
   /* ── CTAs ── */
