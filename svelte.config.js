@@ -12,6 +12,7 @@ const config = {
 			precompress: false
 		}),
 		prerender: {
+			entries: ['*', '/api/contributions'],
 			handleHttpError: 'warn'
 		}
 	}

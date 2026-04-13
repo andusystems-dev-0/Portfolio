@@ -1,6 +1,8 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
+export const prerender = true;
+
 const USERNAME = 'andusystems-dev-0';
 
 export const GET: RequestHandler = async () => {
