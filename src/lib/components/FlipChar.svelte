@@ -141,7 +141,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-family: 'DM Mono', monospace;
+		font-family: 'Space Mono', monospace;
 		font-size: 0.95rem;
 		font-weight: 500;
 		color: #f0f0f0;
