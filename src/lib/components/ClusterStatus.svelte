@@ -4,11 +4,11 @@
   type Status = 'operational' | 'degraded' | 'unavailable';
 
   const clusters = [
-    { label: 'mgmt', path: '/api/status/management' },
-    { label: 'net', path: '/api/status/networking' },
-    { label: 'stor', path: '/api/status/storage' },
-    { label: 'mon', path: '/api/status/monitoring' },
-    { label: 'port', path: '/api/status/portfolio' },
+    { label: 'Management', path: '/api/status/management' },
+    { label: 'Networking', path: '/api/status/networking' },
+    { label: 'Storage', path: '/api/status/storage' },
+    { label: 'Monitoring', path: '/api/status/monitoring' },
+    { label: 'Portfolio', path: '/api/status/portfolio' },
   ];
 
   let statuses: Status[] = clusters.map(() => 'unavailable');
@@ -50,7 +50,7 @@
       </div>
     {/each}
   </div>
-  <span class="status-label">cluster status</span>
+  <span class="status-label">Live Kubernetes Cluster Status</span>
 </div>
 
 <style>
@@ -58,39 +58,38 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.35rem;
+    gap: 0.5rem;
   }
 
   .status-label {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.55rem;
-    color: #6a6a6a;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #999999;
+    letter-spacing: 0.08em;
   }
 
   .cluster-status {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    gap: 0.35rem 0.35rem;
+    gap: 0.5rem 0.75rem;
   }
 
   .cluster {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.45rem;
   }
 
   .label {
     font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: #555555;
+    font-size: 0.8rem;
+    color: #f0f0f0;
     letter-spacing: 0.08em;
   }
 
   .dot {
-    width: 7px;
-    height: 7px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     display: inline-block;
     flex-shrink: 0;

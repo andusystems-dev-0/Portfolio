@@ -77,8 +77,8 @@
 <style>
 	.card {
 		position: relative;
-		width: 1.4ch;
-		height: 2.4rem;
+		width: 1.5ch;
+		height: 2.8rem;
 		margin: 0 1px;
 		perspective: 300px;
 		cursor: default;
@@ -87,8 +87,8 @@
 
 	@media (min-width: 768px) {
 		.card {
-			width: 1.5ch;
-			height: 3.2rem;
+			width: 1.6ch;
+			height: 3.6rem;
 		}
 	}
 
@@ -137,22 +137,22 @@
 		position: absolute;
 		left: 0;
 		right: 0;
-		height: 2.4rem;
+		height: 2.8rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-family: 'DM Mono', monospace;
-		font-size: 0.8rem;
+		font-size: 0.95rem;
 		font-weight: 500;
-		color: #c8b89a;
+		color: #f0f0f0;
 		text-transform: uppercase;
 		white-space: pre;
 	}
 
 	@media (min-width: 768px) {
 		.ch {
-			height: 3.2rem;
-			font-size: 1.15rem;
+			height: 3.6rem;
+			font-size: 1.35rem;
 		}
 	}
 

@@ -41,14 +41,14 @@
     </div>
 
     <!-- Row 3: CTAs — right-align in col1, left-align in col2 to center on gap -->
-    <div class="cell cta-left fade" class:visible={show[2]}>
+    <div class="cell fade" class:visible={show[2]}>
       <div class="cta-row">
         <a href="https://github.com/andusystems-dev-0" target="_blank" rel="noopener" class="cta-btn">
           <svg
             role="img"
             viewBox="0 0 24 24"
-            width="16"
-            height="16"
+            width="18"
+            height="18"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -58,14 +58,14 @@
         </a>
 
         <a href="/resume.pdf" target="_blank" class="cta-btn">
-          <FileText size={16} />
+          <FileText size={18} />
           <span>Resume</span>
         </a>
       </div>
     </div>
-    <div class="cell cta-right fade" class:visible={show[2]}>
+    <div class="cell fade" class:visible={show[2]}>
       <a href="mailto:alex@andusystems.com" class="cta-email">
-        <Mail size={14} />
+        <Mail size={18} />
         <span>alex@andusystems.com</span>
       </a>
     </div>
@@ -83,12 +83,12 @@
 
   .content {
     display: grid;
-    grid-template-columns: auto auto;
-    gap: 2rem 7.5rem;
-    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 4rem;
     align-items: center;
     width: 100%;
-    max-width: 780px;
+    max-width: 900px;
+    transform: translateX(2rem);
   }
 
   /* ── Entrance ── */
@@ -116,47 +116,38 @@
   /* ── Name ── */
   .name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
+    font-size: 80px;
     color: #f0f0f0;
     line-height: 1;
   }
 
   .location {
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: #6a6a6a;
+    font-size: 0.85rem;
+    color: #999999;
     letter-spacing: 0.05em;
-    margin-top: 0.35rem;
+    margin-top: 0.45rem;
   }
 
   /* ── CTAs ── */
-  .cta-left {
-    justify-content: flex-end;
-  }
-
-  .cta-right {
-    justify-content: flex-start;
-  }
-
   .cta-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
     gap: 0.75rem;
   }
 
   .cta-btn {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     color: #f0f0f0;
     text-decoration: none;
     letter-spacing: 0.06em;
-    border: 1px solid #2a2a2a;
-    padding: 0.4rem 0.75rem;
+    border: 1px solid #3a3a3a;
+    padding: 0.5rem 0.9rem;
     transition: border-color 0.2s, color 0.2s;
   }
 
@@ -168,10 +159,10 @@
   .cta-email {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: #6a6a6a;
+    font-size: 0.85rem;
+    color: #999999;
     text-decoration: none;
     letter-spacing: 0.05em;
     transition: color 0.2s;
@@ -185,11 +176,7 @@
   @media (max-width: 640px) {
     .content {
       grid-template-columns: 1fr;
-      justify-items: center;
       gap: 1.5rem;
-    }
-    .cell {
-      justify-content: center;
     }
   }
 </style>

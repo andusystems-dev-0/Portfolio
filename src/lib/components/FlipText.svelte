@@ -4,11 +4,9 @@
 
 	const roles = [
 		'Systems Engineer',
-		'Systems Architect',
+		'Software Engineer',
 		'DevOps Engineer',
-		'Infrastructure Engineer',
-		'Platform Engineer',
-		'Full Stack Developer'
+		'Platform Engineer'
 	];
 
 	const maxLen = Math.max(...roles.map((r) => r.length));
@@ -80,8 +78,9 @@
 <style>
 	.flip-display {
 		display: inline-flex;
-		justify-content: center;
-		padding: 6px;
+		justify-content: flex-start;
+		padding: 4px;
+		margin-left: -4px;
 		border-radius: 8px;
 		border: 1px solid rgba(200, 184, 154, 0.06);
 		background: rgba(10, 10, 15, 0.5);

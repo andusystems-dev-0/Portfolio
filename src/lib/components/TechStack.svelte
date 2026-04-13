@@ -6,25 +6,33 @@
     siAnsible,
     siGo,
     siSvelte,
-    //siArgocd,
-    siLinux,
+    siArgo,
+    siHelm,
     siProxmox,
-    siNginx,
-    siGit,
+    siTypescript,
+    siAngular,
+    siDotnet,
+    siApacheairflow,
+    siApachekafka,
+    siSqlite,
   } from 'simple-icons';
 
   const icons = [
     { icon: siKubernetes, label: 'Kubernetes' },
+    { icon: siArgo, label: 'ArgoCD' },
+    { icon: siHelm, label: 'Helm' },
     { icon: siDocker, label: 'Docker' },
     { icon: siTerraform, label: 'Terraform' },
     { icon: siAnsible, label: 'Ansible' },
-    { icon: siGo, label: 'Go' },
-    { icon: siSvelte, label: 'Svelte' },
-    //{ icon: siArgocd, label: 'ArgoCD' },
-    { icon: siLinux, label: 'Linux' },
     { icon: siProxmox, label: 'Proxmox' },
-    { icon: siNginx, label: 'Nginx' },
-    { icon: siGit, label: 'Git' },
+    { icon: siApachekafka, label: 'Kafka' },
+    { icon: siApacheairflow, label: 'Airflow' },
+    { icon: siDotnet, label: '.NET' },
+    { icon: siAngular, label: 'Angular' },
+    { icon: siSvelte, label: 'Svelte' },
+    { icon: siTypescript, label: 'TypeScript' },
+    { icon: siGo, label: 'Go' },
+    { icon: siSqlite, label: 'SQL' },
   ];
 </script>
 
@@ -38,8 +46,8 @@
             <svg
               role="img"
               viewBox="0 0 24 24"
-              width="20"
-              height="20"
+              width="26"
+              height="26"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
               aria-label={label}
@@ -64,9 +72,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 1rem;
-    padding-top: 0.75rem;
-    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-top: 0;
+    gap: 1.25rem;
     background: radial-gradient(ellipse at 50% 100%, #12121a 0%, #0a0a0f 70%);
   }
 
@@ -78,7 +86,8 @@
 
   .ticker-mask {
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
@@ -87,6 +96,7 @@
     display: flex;
     align-items: center;
     width: max-content;
+    padding-top: 0.5rem;
     animation: scroll 25s linear infinite;
   }
 
@@ -98,10 +108,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
-    width: 5rem;
+    gap: 0.4rem;
+    width: 6rem;
     flex-shrink: 0;
-    color: #333333;
+    color: #555555;
     transition: color 0.2s, transform 0.2s;
     cursor: default;
   }
@@ -109,12 +119,13 @@
   .icon-cell:hover {
     color: #f0f0f0;
     transform: scale(1.15);
+    z-index: 1;
   }
 
   .icon-label {
     font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: #6a6a6a;
+    font-size: 0.75rem;
+    color: #999999;
     letter-spacing: 0.04em;
     white-space: nowrap;
   }
