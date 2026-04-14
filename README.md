@@ -1,6 +1,6 @@
 # Andusystems Portfolio
 
-A personal portfolio website for Alex — Developer & Infrastructure Engineer. Built with SvelteKit and featuring an animated flip-clock role display, dark theme with copper accents, and staggered entrance animations.
+A personal portfolio website for a Developer & Infrastructure Engineer. Built with SvelteKit and featuring an animated flip-clock role display, dark theme with copper accents, and staggered entrance animations.
 
 ## Features
 
@@ -66,8 +66,8 @@ src/
 │   └── components/
 │       ├── FlipChar.svelte   # Individual 3D flip-card character
 │       ├── FlipText.svelte   # Flip-clock role cycler (4 s interval, swipe detection)
-│       ├── Hero.svelte       # Hero section — headline, flip-text, action links
-│       └── Nav.svelte        # Top navigation bar
+│       └─── Hero.svelte       # Hero section — headline, flip-text, action links
+│
 └── routes/
     ├── +layout.svelte    # Root layout (imports global styles)
     ├── +layout.ts        # Prerender + CSR-only flags
@@ -108,105 +108,3 @@ See [docs/architecture.md](docs/architecture.md) for component diagrams, data fl
 ## License
 
 Private. All rights reserved.
-
-
-##################################################3# TEMPORARY, PLEASE REMOVE ################################################
-
-Good call on pulling back from full terminal aesthetic — the flip-clock is a design statement and a heavy terminal theme would fight it. The cursor after your name is a perfect subtle nod without committing to the bit.
-
----
-
-## Revised Design Direction
-
-**Aesthetic:** Brutalist-minimal. Black background, white typography, zero decoration. The flip-clock and the live badges are the *only* visual interest — everything else gets out of their way.
-
-**Color Palette (monotone):**
-
-| Role | Value |
-|---|---|
-| Background | `#0a0a0a` |
-| Primary text | `#f0f0f0` |
-| Muted text | `#555555` |
-| Accent / pulse | `#ffffff` |
-| Divider | `#1a1a1a` |
-| Hover tint (icons) | `#cccccc` |
-
-No copper. Clean. The flip-clock already provides motion — color would be noise.
-
-**Typography:**
-- **Name:** Bebas Neue (already planned) — `font-size: clamp(4rem, 10vw, 9rem)`
-- **Location + muted labels:** `Space Mono` — fits the technical identity without going full terminal
-- **CTA buttons / footer:** `Inter` or `Space Mono` — your call, Inter is cleaner
-
----
-
-## What Needs to Be Added (Ordered Build List)
-
-**1. Cursor after name**
-- A `|` character in a `<span>` with a CSS `blink` keyframe animation — no library
-- Match the name font size, white, ~1s blink cycle
-- `animation: blink 1s step-end infinite`
-
-**2. Location line**
-- `Johnson City, TN` in Space Mono, small, muted (`#555555`), directly under name+cursor line
-- No icon, no flag emoji — just text
-
-**3. Live cluster status badge**
-- `ClusterStatus.svelte` component
-- Polls your homelab `/healthz` endpoint via `fetch` on mount + every 60s
-- Green pulse dot (CSS `@keyframes pulse` with `box-shadow`) + `"infra: operational"`
-- Fallback: gray dot + `"status unavailable"` on timeout/error
-- Style: monospace label, small, sits below the flip-clock
-
-**4. GitHub commit sparkline**
-- No library — raw SVG rendered from GitHub public API data
-- Endpoint: `https://api.github.com/users/YOUR_USER/events`
-- Filter `PushEvent`, bucket last 30 days, normalize bar heights
-- Sits next to or below the cluster badge — same horizontal band
-- Label: `"push activity · 30d"` in muted Space Mono
-
-**5. CTA row**
-- Three icon-buttons: andusystems.com, GitHub, Resume PDF
-- Use `lucide-svelte` for icons (Globe, Github, FileText)
-- White icons, no fill, border `1px solid #2a2a2a`, hover → border goes white
-- Below: `mailto:` link in Space Mono, small
-
-**6. Tech stack footer**
-- Icon strip from `simple-icons` SVG set (self-hosted, no CDN dependency)
-- Icons: Kubernetes, Docker, Terraform, Ansible, Go, Svelte, Proxmox, ArgoCD, Linux
-- All white/`#f0f0f0`, same size (`24px`), hover → full white + slight scale
-- Separated by a `1px solid #1a1a1a` rule
-
-**7. Particle field**
-- Already in progress via Threlte — confirm z-index is behind all content
-- Opacity: `0.15–0.25` max so it doesn't pull focus from the flip-clock
-
----
-
-## Libraries / Fonts Summary
-
-| Thing | Library / Source |
-|---|---|
-| Icons (CTA) | `lucide-svelte` |
-| Icons (footer) | `simple-icons` SVGs, self-hosted |
-| Fonts | Google Fonts — Bebas Neue, Space Mono, Inter |
-| 3D / particles | `threlte` (already in use) |
-| Cluster polling | Native `fetch` in Svelte `onMount` |
-| Sparkline | Raw SVG — no library |
-| Flip-clock | Your existing Three.js element |
-
----
-
-## What to Skip / Not Add
-
-- No scroll animations or entrance transitions — they delay the impact
-- No hover tooltips on the tech stack icons — KISS
-- No separate "about" section — the flip-clock says it all
-- No dark/light toggle — it's always dark, that's the point
-
----
-
-The page should load and feel *immediately* done. Name, cursor blink, flip-clock running, badges live, icons at the bottom. Five seconds to understand everything about you. Want me to start scaffolding any of the Svelte components?
-
-
-
