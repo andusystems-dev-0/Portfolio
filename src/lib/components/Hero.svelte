@@ -147,7 +147,7 @@
     text-decoration: none;
     letter-spacing: 0.06em;
     border: 1px solid #3a3a3a;
-    border-radius: 6px;
+    border-radius: 4px;
     padding: 0.5rem 0.9rem;
     transition: border-color 0.2s, color 0.2s;
   }
