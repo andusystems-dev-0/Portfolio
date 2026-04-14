@@ -96,4 +96,10 @@
   .muted {
     color: #555555;
   }
+
+  @media (max-width: 640px) {
+    .feed-wrapper {
+      align-items: center;
+    }
+  }
 </style>

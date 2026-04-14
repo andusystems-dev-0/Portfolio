@@ -114,4 +114,10 @@
     0%, 100% { box-shadow: 0 0 4px #4ade80; }
     50% { box-shadow: 0 0 12px #4ade80; }
   }
+
+  @media (max-width: 640px) {
+    .cluster-status-wrapper {
+      align-items: center;
+    }
+  }
 </style>

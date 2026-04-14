@@ -177,6 +177,19 @@
     .content {
       grid-template-columns: 1fr;
       gap: 1.5rem;
+      transform: none;
+    }
+
+    .cell {
+      justify-content: center;
+    }
+
+    .cell.identity {
+      align-items: center;
+    }
+
+    .cta-row {
+      justify-content: center;
     }
   }
 </style>
