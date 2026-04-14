@@ -57,7 +57,7 @@
           <span>Github</span>
         </a>
 
-        <a href="/AlexResume e.pdf" target="_blank" class="cta-btn">
+        <a href="/AlexResume.pdf" target="_blank" class="cta-btn">
           <FileText size={18} />
           <span>Resume</span>
         </a>
@@ -147,6 +147,7 @@
     text-decoration: none;
     letter-spacing: 0.06em;
     border: 1px solid #3a3a3a;
+    border-radius: 8px;
     padding: 0.5rem 0.9rem;
     transition: border-color 0.2s, color 0.2s;
   }
