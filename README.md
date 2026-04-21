@@ -27,6 +27,7 @@ A personal portfolio website for a Developer & Infrastructure Engineer. Built wi
 
 ## Quick Start
 
+
 ```bash
 # Install dependencies
 npm install
