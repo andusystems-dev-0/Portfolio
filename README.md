@@ -1,111 +1,153 @@
-# Andusystems Portfolio
+# Portfolio
 
-A personal portfolio website for a Developer & Infrastructure Engineer. Built with SvelteKit and featuring an animated flip-clock role display, dark theme with copper accents, and staggered entrance animations.
+> Personal portfolio site for a Systems & Software Engineer — static SvelteKit SPA deployed to the andusystems homelab.
 
-## Features
+## Purpose
 
-- **Flip-clock role animation** — cycles through roles (Systems Engineer, DevOps Engineer, Full Stack Developer, etc.) with 3D character-flip transitions
-- **Interactive swipe detection** — rapid hover across characters triggers the next role
-- **Dark gradient theme** — deep background with a custom copper (`#c8b89a`) accent palette
-- **Static pre-rendered SPA** — built with SvelteKit's static adapter for fast, cacheable delivery
-- **Containerized deployment** — multi-stage Docker build served via nginx as a non-root user
-- **GitOps CI/CD** — automated container builds with image tag promotion to a GitOps repository
-- **Accessibility** — respects `prefers-reduced-motion` to disable animations for users who request it
+This repository contains a personal portfolio website showcasing engineering skills and homelab work. The site is built with SvelteKit and compiles to a fully static SPA at build time. It is containerized and deployed to the andusystems Kubernetes cluster via a GitOps pipeline driven by ArgoCD.
 
-## Tech Stack
+The site features a flip-clock role animation, a live GitHub contribution heatmap, real-time homelab cluster status indicators, and a scrolling technology stack ticker.
 
-| Layer       | Technology                                     |
-|-------------|-------------------------------------------------|
-| Framework   | SvelteKit 2.5, Svelte 4.2                      |
-| Styling     | Tailwind CSS 3.4, Skeleton UI 2.10             |
-| Typography  | Bebas Neue (display), DM Sans (body), DM Mono  |
-| Build       | Vite 5.2, TypeScript 5.4                       |
-| Runtime     | nginx-unprivileged 1.27 (Alpine)               |
-| Container   | Docker multi-stage (Node 20 Alpine → nginx)     |
-| CI/CD       | GitHub Actions (self-hosted runner)             |
-| GitOps      | ArgoCD (automatic deployment on image tag bump) |
+## At a glance
 
-## Quick Start
+| Field | Value |
+|---|---|
+| Type | application |
+| Role | service |
+| Primary stack | SvelteKit + Tailwind CSS + TypeScript |
+| Deployed by | hub ArgoCD (GitOps image tag bump via CI) |
+| Status | production |
 
+## Components
 
-```bash
-# Install dependencies
-npm install
+| Component | Purpose | Location |
+|---|---|---|
+| `Hero` | Headline, animated role cycler, and action links | `src/lib/components/Hero.svelte` |
+| `FlipText` | Manages role cycling — auto-advances every 4 s, swipe interaction | `src/lib/components/FlipText.svelte` |
+| `FlipChar` | Single flip-clock character — 3D CSS transform, two-phase animation | `src/lib/components/FlipChar.svelte` |
+| `GitFeed` | 30-day GitHub contribution heatmap fetched from the contributions API | `src/lib/components/GitFeed.svelte` |
+| `ClusterStatus` | Live status indicators for five homelab clusters, polled every 60 s | `src/lib/components/ClusterStatus.svelte` |
+| `TechStack` | Fixed-footer scrolling ticker of technology icons | `src/lib/components/TechStack.svelte` |
+| Contributions API | Pre-rendered endpoint that proxies GitHub contribution data | `src/routes/api/contributions/+server.ts` |
+| Root layout | Global style imports and SPA shell | `src/routes/+layout.svelte` |
 
-# Start development server (http://localhost:5173)
-npm run dev
+## Architecture
 
-# Type-check the project
-npm run check
+```
+  Browser
+    │
+    ▼
+  nginx (non-root, port 8080)
+    │  SPA fallback — try_files → index.html
+    │  Immutable cache headers for hashed assets
+    │
+    ▼
+  +page.svelte
+    ├── Hero ──▶ FlipText ──▶ FlipChar × N
+    ├── GitFeed ──▶ GET /api/contributions ──▶ (pre-rendered JSON)
+    └── TechStack (static icon ticker)
 
-# Build for production
-npm run build
+  ClusterStatus ──▶ GET <cluster-status-proxy> (runtime, every 60 s)
 
-# Preview the production build
-npm run preview
+  CI/CD
+    push → GitHub Actions → Docker build → registry push
+                          → GitOps manifest bump → ArgoCD sync
 ```
 
-## Docker
+The page is pre-rendered at build time; the contributions endpoint is also pre-rendered (static JSON). `ClusterStatus` performs live HTTP polling at runtime. See [docs/architecture.md](docs/architecture.md) for the full breakdown.
 
-Build and run the containerized version:
+## Quick start
+
+### Prerequisites
+
+| Tool | Version | Purpose |
+|---|---|---|
+| Node.js | 20+ | Build and dev server |
+| npm | 9+ | Package management (bundled with Node 20) |
+| Docker | 20+ | Container builds (optional for local dev) |
+
+### Deploy / run
 
 ```bash
+git clone <repository-url> && cd Portfolio
+npm install
+npm run dev
+# dev server at http://localhost:5173
+
+# production build
+npm run build
+npm run preview
+
+# containerized
 docker build -t portfolio .
 docker run -p 8080:8080 portfolio
 ```
 
-The container runs as a non-root user (uid 101) on port 8080.
+See [docs/development.md](docs/development.md) for Docker details, type checking, and styling conventions.
 
-## Project Structure
+## Configuration
+
+### CI secrets (repository settings)
+
+| Key | Required | Description |
+|---|---|---|
+| `NEXUS_USERNAME` | CI only | Container registry username |
+| `NEXUS_PASSWORD` | CI only | Container registry password |
+| `FORGEJO_TOKEN` | CI only | Git token for GitOps manifest bump |
+
+No environment variables are required for local development. The site is fully static.
+
+### Key config files
+
+| File | Purpose |
+|---|---|
+| `svelte.config.js` | Static adapter, prerender settings, SPA fallback |
+| `tailwind.config.js` | Dark mode, copper color palette, custom font families |
+| `nginx.conf` | SPA fallback routing, gzip compression, immutable asset caching |
+| `Dockerfile` | Multi-stage build (Node 20 builder → nginx-unprivileged runtime) |
+| `vite.config.ts` | Vite build configuration with SvelteKit plugin |
+
+## Repository layout
 
 ```
-src/
-├── app.html              # HTML shell — Open Graph meta, Google Fonts, dark mode
-├── app.postcss           # Global styles — Tailwind directives, background gradient
-├── app.d.ts              # SvelteKit ambient type definitions
-├── lib/
-│   └── components/
-│       ├── FlipChar.svelte   # Individual 3D flip-card character
-│       ├── FlipText.svelte   # Flip-clock role cycler (4 s interval, swipe detection)
-│       └─── Hero.svelte       # Hero section — headline, flip-text, action links
-│
-└── routes/
-    ├── +layout.svelte    # Root layout (imports global styles)
-    ├── +layout.ts        # Prerender + CSR-only flags
-    └── +page.svelte      # Homepage composition (Nav + Hero)
-static/
-├── favicon.svg           # Copper "A" on dark background
-└── robots.txt            # Allow all crawlers
+.
+├── src/
+│   ├── app.html                  # HTML shell — OG meta, Google Fonts, dark mode class
+│   ├── app.postcss               # Global styles — Tailwind directives, dark gradient
+│   ├── app.d.ts                  # SvelteKit ambient type definitions
+│   ├── lib/
+│   │   └── components/           # Reusable Svelte components
+│   │       ├── FlipChar.svelte
+│   │       ├── FlipText.svelte
+│   │       ├── Hero.svelte
+│   │       ├── GitFeed.svelte
+│   │       ├── ClusterStatus.svelte
+│   │       └── TechStack.svelte
+│   └── routes/
+│       ├── +layout.svelte        # Root layout
+│       ├── +layout.ts            # prerender = true, ssr = false
+│       ├── +page.svelte          # Homepage composition
+│       └── api/contributions/    # Pre-rendered GitHub contributions endpoint
+├── static/                       # Static assets (favicon, resume PDF, robots.txt)
+├── docs/                         # Project documentation
+├── Dockerfile                    # Multi-stage build (Node 20 → nginx)
+├── nginx.conf                    # SPA routing, gzip, immutable caching
+├── svelte.config.js              # Static adapter, prerender config
+├── tailwind.config.js            # Copper palette, custom fonts, dark mode
+├── postcss.config.js             # Tailwind + Autoprefixer
+├── vite.config.ts                # Vite + SvelteKit plugin
+└── package.json                  # Dependencies and npm scripts
 ```
 
-## Configuration Reference
+## Related repos
 
-| File                 | Purpose                                                |
-|----------------------|--------------------------------------------------------|
-| `svelte.config.js`  | Static adapter, prerender settings, SPA fallback        |
-| `vite.config.ts`    | Vite build config with SvelteKit plugin                 |
-| `tailwind.config.js`| Dark mode, copper palette, custom fonts, Skeleton UI    |
-| `postcss.config.js` | Tailwind CSS + Autoprefixer pipeline                    |
-| `tsconfig.json`     | Strict TypeScript, ESM interop, bundler module resolution |
-| `nginx.conf`        | SPA fallback routing, gzip compression, immutable caching |
-| `Dockerfile`        | Multi-stage build (Node 20 builder → nginx runtime)      |
+| Repo | Relation |
+|---|---|
+| andusystems-management | hub — provisions the cluster ArgoCD apps that run this service |
+| andusystems-infrastructure | GitOps target — CI bumps the portfolio image tag in this repo |
 
-## Architecture Summary
+## Further documentation
 
-The site is a single-page application pre-rendered at build time via SvelteKit's static adapter. All rendering happens client-side — there is no server runtime. The page consists of a `Nav` bar and a `Hero` section containing the headline, a `FlipText` role cycler (composed of individual `FlipChar` components), and action links.
-
-In production, a CI pipeline builds the Docker image, pushes it to an internal container registry, and bumps the image tag in a GitOps repository. ArgoCD detects the change and rolls the deployment automatically.
-
-Static assets are served by nginx with one-year immutable cache headers and gzip compression.
-
-See [docs/architecture.md](docs/architecture.md) for component diagrams, data flows, and design decisions.
-
-## Further Documentation
-
-- [Architecture](docs/architecture.md) — component diagram, data flows, CI/CD pipeline, design decisions
-- [Development](docs/development.md) — prerequisites, build commands, local setup, styling guide
-- [Changelog](CHANGELOG.md) — version history
-
-## License
-
-Private. All rights reserved.
+- [Architecture](docs/architecture.md) — component diagram, data flows, design decisions, invariants
+- [Development](docs/development.md) — local setup, build commands, styling guide, CI/CD
+- [Changelog](CHANGELOG.md) — release history
