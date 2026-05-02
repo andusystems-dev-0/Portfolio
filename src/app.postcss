@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	min-height: 100vh;
+	min-height: 100dvh;
+	background-color: #0a0a0f;
+	background-image: radial-gradient(ellipse at 50% 40%, #12121a 0%, #0a0a0f 70%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

@@ -1,0 +1,30 @@
+node_modules
+.svelte-kit
+build
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+.npmrc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Local AI tool state and notes
+.claude
+CLAUDE.md
+PLAN.md
+
+# Logs and coverage
+*.log
+coverage
+.nyc_output
