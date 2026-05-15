@@ -1,6 +1,6 @@
 ---
 title: New Go Book and Ansible JSON Parsing
-date: 2026-04-26
+date: 2026-05-04
 description: Social media, reading Go, and Ansible JSON parsing
 ---
 
