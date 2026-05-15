@@ -20,6 +20,15 @@ const config = {
 			entries: ['*', '/api/contributions'],
 			handleHttpError: 'warn'
 		},
+		// Force absolute asset paths so the hydration bootstrap is byte-identical
+		// across every prerendered page. The postbuild step
+		// (scripts/postbuild-externalize-bootstrap.mjs) then extracts that single
+		// inline <script> into an external file so the CSP can be `script-src
+		// 'self'` with no hash. Site is served at the domain root, so absolute
+		// paths are correct here.
+		paths: {
+			relative: false
+		},
 		// CSP via build-time hashes. SvelteKit emits a <meta http-equiv> tag
 		// at the top of <head> containing these directives plus a sha256
 		// hash for every inline <script> and <style> block it generates,
