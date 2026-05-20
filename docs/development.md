@@ -38,7 +38,7 @@ The dev server starts at `http://localhost:5173` by default. Vite will pick the 
 npm run build
 ```
 
-Output is written to `build/` as static HTML, CSS, and JS. The SvelteKit static adapter pre-renders all routes, including `/api/contributions`, at build time.
+Output is written to `build/` as static HTML, CSS, and Javascript. The SvelteKit static adapter pre-renders all routes, including `/api/contributions`, at build time.
 
 To preview the production build locally:
 
