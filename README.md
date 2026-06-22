@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This repository contains a personal portfolio website showcasing engineering skills and homelab work. The site is built with SvelteKit and compiles to a fully static SPA at build time. It is containerized and deployed to the andusystems Kubernetes cluster via a GitOps pipeline driven by ArgoCD.
+This repository contains a personal portfolio website showcasing engineering skills and homelab work. The site is built with SvelteKit and compiles to a fully static single page application at build time. It is containerized and deployed to the andusystems Kubernetes cluster via a GitOps pipeline driven by ArgoCD.
 
 The site features a flip-clock role animation, a live GitHub contribution heatmap, real-time homelab cluster status indicators, and a scrolling technology ticker.
 
