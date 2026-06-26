@@ -50,7 +50,7 @@
       </div>
     {/each}
   </div>
-  <span class="status-label">Live Kubernetes Cluster Status - Some Clusters Currently Being Migrated</span>
+  <span class="status-label">Live Kubernetes Cluster Status</span>
 </div>
 
 <style>
