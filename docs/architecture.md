@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Portfolio site is a statically pre-rendered single-page application built with SvelteKit. It compiles to plain HTML, CSS, and JavaScript at build time and is served from an nginx container with no server-side runtime. The only runtime network activity is `ClusterStatus`, which polls a reverse-proxied status endpoint every 60 seconds.
+The Portfolio site is a static pre-rendered single-page application built with SvelteKit. It compiles to plain HTML, CSS, and JavaScript at build time and is served from an nginx container with no server-side runtime. The only runtime network activity is `ClusterStatus`, which polls a reverse-proxied status endpoint every 60 seconds.
 
 Deployment is fully automated through a GitOps pipeline — a CI workflow builds and pushes the container image, updates an image tag in a separate infrastructure repository, and ArgoCD rolls the new version into the cluster.
 
