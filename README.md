@@ -1,6 +1,6 @@
 # Portfolio
 
-> Personal portfolio site for a Systems & Software Engineer — static SvelteKit SPA deployed to the andusystems homelab.
+> Personal portfolio and blog site for a Systems & Software Engineer — static SvelteKit SPA deployed to the andusystems homelab.
 
 ## Purpose
 
