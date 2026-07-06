@@ -27,6 +27,10 @@
     <div class="cell identity fade" class:visible={show[0]}>
       <h1 class="name">ALEX</h1>
       <p class="location">Johnson City, TN</p>
+      <p class="founder">
+        Founder of
+        <a href="https://hireship.io" target="_blank" rel="noopener" class="founder-link">Hireship</a>
+      </p>
     </div>
     <div class="cell fade" class:visible={show[0]}>
       <FlipText />
@@ -127,6 +131,26 @@
     color: #999999;
     letter-spacing: 0.05em;
     margin-top: 0rem;
+  }
+
+  .founder {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: #999999;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+  }
+
+  .founder-link {
+    color: #c8b89a;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .founder-link:hover {
+    color: #d4c9b0;
+    border-color: #c8b89a;
   }
 
   /* ── CTAs ── */

@@ -3,6 +3,7 @@
 
 	$: path = $page.url.pathname;
 	$: isHome = path === '/';
+	$: isProjects = path === '/projects' || path.startsWith('/projects/');
 	$: isBlog = path === '/blog' || path.startsWith('/blog/');
 </script>
 
@@ -10,6 +11,7 @@
 	<a href="/" class="brand">andusystems</a>
 	<nav class="nav">
 		<a href="/" class="link" class:active={isHome}>Home</a>
+		<a href="/projects" class="link" class:active={isProjects}>Projects</a>
 		<a href="/blog" class="link" class:active={isBlog}>Blog</a>
 	</nav>
 </header>
