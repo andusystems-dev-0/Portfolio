@@ -18,8 +18,7 @@ export const projects: Project[] = [
 		name: 'Hireship',
 		url: 'https://hireship.io',
 		description:
-			'A job aggregator and scoring engine that pulls in postings and ranks each one against your profile with a multi-pass, AI-driven scoring pipeline. Fully self-hosted on a private Kubernetes cluster.'
-		// TODO: add a screenshot at static/projects/hireship.png, then set:
-		// screenshot: '/projects/hireship.png'
+			'A job aggregator and scoring engine that pulls in postings and ranks each one against your profile with a multi-pass, AI-driven scoring pipeline. Fully self-hosted on a private Kubernetes cluster.',
+		screenshot: '/projects/hireship.png'
 	}
 ];
