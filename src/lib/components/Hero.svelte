@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
   import { FileText, Mail } from 'lucide-svelte';
   import { siGithub } from 'simple-icons';
-	import FlipText from './FlipText.svelte';
+	// import FlipText from './FlipText.svelte'; // temporarily removed
   import ClusterStatus from './ClusterStatus.svelte';
   import GitFeed from './GitFeed.svelte';
 
@@ -23,17 +23,18 @@
 
 <main class="page">
   <div class="content">
-    <!-- Row 1: Name | FlipText -->
+    <!-- Row 1: Name | Founder (FlipText temporarily removed) -->
     <div class="cell identity fade" class:visible={show[0]}>
       <h1 class="name">ALEX</h1>
       <p class="location">Johnson City, TN</p>
+    </div>
+    <div class="cell fade" class:visible={show[0]}>
+      <!-- FlipText temporarily removed -->
+      <!-- <FlipText /> -->
       <p class="founder">
         Founder of
         <a href="https://hireship.io" target="_blank" rel="noopener" class="founder-link">Hireship</a>
       </p>
-    </div>
-    <div class="cell fade" class:visible={show[0]}>
-      <FlipText />
     </div>
 
     <!-- Row 2: Git Heatmap | Cluster Status -->
