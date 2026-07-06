@@ -20,12 +20,14 @@
 				{#each data.projects as project (project.url)}
 					<li class="item">
 						{#if project.screenshot}
-							<img
-								class="shot"
-								src={project.screenshot}
-								alt={`${project.name} screenshot`}
-								loading="lazy"
-							/>
+							<a href={project.url} target="_blank" rel="noopener" class="shot-link" aria-label={`Open ${project.name}`}>
+								<img
+									class="shot"
+									src={project.screenshot}
+									alt={`${project.name} screenshot`}
+									loading="lazy"
+								/>
+							</a>
 						{:else}
 							<!-- Graceful placeholder — set `screenshot` in src/lib/projects.ts
 							     once a real asset lives at static/projects/<name>.png -->
@@ -93,8 +95,18 @@
 		padding-top: 1.75rem;
 	}
 
-	.shot {
+	.shot-link {
 		flex-shrink: 0;
+		display: block;
+		line-height: 0;
+		transition: opacity 0.2s;
+	}
+
+	.shot-link:hover {
+		opacity: 0.9;
+	}
+
+	.shot {
 		width: 260px;
 		height: auto;
 		border-radius: 6px;
@@ -102,6 +114,7 @@
 	}
 
 	.shot--empty {
+		flex-shrink: 0;
 		aspect-ratio: 3 / 4;
 		display: flex;
 		align-items: center;
@@ -166,6 +179,7 @@
 		.item {
 			flex-direction: column;
 		}
+		.shot-link,
 		.shot {
 			width: 100%;
 		}
