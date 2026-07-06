@@ -95,14 +95,14 @@
 
 	.shot {
 		flex-shrink: 0;
-		width: 240px;
-		aspect-ratio: 16 / 10;
-		object-fit: cover;
+		width: 260px;
+		height: auto;
 		border-radius: 6px;
 		border: 1px solid #1f1f24;
 	}
 
 	.shot--empty {
+		aspect-ratio: 3 / 4;
 		display: flex;
 		align-items: center;
 		justify-content: center;
