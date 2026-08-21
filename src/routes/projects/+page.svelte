@@ -5,8 +5,8 @@
 </script>
 
 <svelte:head>
-	<title>Projects — the operator</title>
-	<meta name="description" content="Projects built and shipped by the operator — founder of Hireship." />
+	<title>Projects — Alex</title>
+	<meta name="description" content="Projects built and shipped by Alex — founder of Hireship." />
 </svelte:head>
 
 <main class="page">

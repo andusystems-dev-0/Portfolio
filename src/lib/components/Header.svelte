@@ -8,7 +8,7 @@
 </script>
 
 <header class="header">
-	<a href="/" class="brand">the operator</a>
+	<a href="/" class="brand">Alex</a>
 	<nav class="nav">
 		<a href="/" class="link" class:active={isHome}>Home</a>
 		<a href="/projects" class="link" class:active={isProjects}>Projects</a>
