@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>Blog — Alex</title>
+	<title>Blog — the operator</title>
 	<meta name="description" content="Posts on infrastructure, projects, and engineering notes." />
 </svelte:head>
 

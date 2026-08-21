@@ -17,7 +17,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.metadata.title} — Alex</title>
+	<title>{data.metadata.title} — the operator</title>
 	{#if data.metadata.description}
 		<meta name="description" content={data.metadata.description} />
 	{/if}
